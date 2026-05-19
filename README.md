@@ -1,78 +1,106 @@
-# Top 5 Ligas Europeas
+# Top 5 Ligas Europeas — Football Analytics
 
 ## Descripción
-Análisis, limpieza y respuesta a preguntas sobre un conjunto de datos de fútbol, utilizando pandas y bibliotecas relacionadas. Tableau incorporado
+Análisis, limpieza y visualización interactiva de datos de fútbol de las 5 principales ligas europeas (2014–2020), utilizando Python, Streamlit y Tableau.
+
+## Demo
+
+🚀 **[Ver app en Streamlit](https://bigdata-futbol.streamlit.app)**
+
+📊 **[Dashboard en Tableau](https://public.tableau.com/app/profile/fernando.torrres/viz/fin_17211741220640/Dashboard4?publish=yes)**
 
 ## Tabla de Contenidos
-1. [Introducción](#introducción)
+1. [Estructura del Proyecto](#estructura-del-proyecto)
 2. [Datasets](#datasets)
-   - [Appearances](#appearances)
-   - [Games](#games)
-   - [Leagues](#leagues)
-   - [Players](#players)
-   - [Shots](#shots)
-   - [Teams](#teams)
-   - [Teamstats](#teamstats)
 3. [Preguntas de Investigación](#preguntas-de-investigación)
 4. [Metodología y Herramientas](#metodología-y-herramientas)
-   - [Bibliotecas Usadas](#bibliotecas-usadas)
-5. [Comentarios Adicionales](#comentarios-adicionales)
-6. [Contribución](#contribución)
-7. [Licencia](#licencia)
+5. [Cómo ejecutar localmente](#cómo-ejecutar-localmente)
+
+## Estructura del Proyecto
+
+```
+├── app.py                    # Página de inicio (Streamlit)
+├── data_loader.py            # Carga de datos con caché
+├── utils.py                  # Campo de fútbol en Plotly
+├── pages/
+│   ├── 1_Faltas_por_Posicion.py
+│   ├── 2_Mejor_Goleador.py
+│   ├── 3_Mapa_Ganadores.py
+│   ├── 4_Mapa_Partidos.py
+│   ├── 5_Evolucion_Faltas.py
+│   ├── 6_Pelota_Quieta.py
+│   ├── 7_Equipos_Visitante.py
+│   └── 8_Situaciones_Gol.py
+├── Analisis.ipynb            # Limpieza de datos (original)
+├── Preguntas.ipynb           # Análisis exploratorio (original)
+├── Raw/                      # Datos crudos
+└── Clean/                    # Datos procesados
+```
 
 ## Datasets
-El proyecto incluye 7 datasets en formato CSV, siendo los más interesantes `games`, `shots`, `teamstats` y `appearances`.
+El proyecto incluye 7 datasets en formato CSV, siendo los más relevantes `games`, `shots`, `teamstats` y `appearances`.
 
-### Appearances
-Detalla las apariciones de jugadores en partidos, incluyendo estadísticas como goles, asistencias, tarjetas amarillas y rojas, y otros datos relacionados con su desempeño individual.
-
-### Games
-Información sobre partidos específicos, incluyendo IDs de equipos local y visitante, goles marcados, probabilidades de resultados y cuotas de apuestas de varias casas.
-
-### Leagues
-Tabla que mapea IDs de liga con sus nombres y notaciones correspondientes.
-
-### Players
-Lista de jugadores con sus IDs y nombres.
-
-### Shots
-Detalles de los tiros en los partidos, incluyendo ID del juego, ID del tirador y del asistente, tipo de disparo, resultado esperado de gol (xGoal), y ubicación del disparo en el campo.
-
-### Teams
-Información sobre equipos participantes, con sus IDs y nombres.
-
-### Teamstats
-Estadísticas detalladas por equipo y partido, como goles marcados, xGoals, tiros, tarjetas amarillas, rojas, y otros indicadores de desempeño.
+| Dataset | Filas | Descripción |
+|---------|-------|-------------|
+| `appearances` | 356.513 | Estadísticas individuales por jugador y partido |
+| `shots` | 324.543 | Detalles de cada tiro: posición, tipo, resultado, xGoal |
+| `games` | 12.680 | Resultados, probabilidades y cuotas de apuestas |
+| `teamstats` | 25.360 | Métricas por equipo y partido (xGoals, PPDA, corners) |
+| `players` | 7.659 | Catálogo de jugadores |
+| `teams` | 146 | Catálogo de equipos con geolocalización |
+| `leagues` | 5 | Premier League, Serie A, Bundesliga, La Liga, Ligue 1 |
 
 ## Preguntas de Investigación
-Algunas de las preguntas formuladas durante el proyecto incluyen:
 
-1. ¿Cómo es la distribución de faltas según equipo por posición y por temporada?
-2. ¿Cuál es el porcentaje de tarjetas amarillas en cada posición del campo de fútbol?
-3. ¿De dónde suele anotar el goleador de una liga en cada temporada?. Crear un gráfico de dispersión del mejor anotador de la temporada.
-4. ¿Qué ciudades ganaron más torneos?. Crear un mapa de la suma de torneos ganados de cada liga por ciudad.
-5. ¿En qué lugares se juegan más partidos de las 5 mejores ligas?. Crear un mapa de calor.
-6. ¿Cómo es la evolución de faltas a lo largo del tiempo en distintas ligas?. Realizar un histograma con filtros de jugadores destacados en jugadas de pelota quieta (corners, penales, tiros libres y directos).
-7. ¿Qué equipos de cada liga obtienen más puntos de visitante?. Crear un gráfico de barras de equipos obtienen más puntos de visitante.
-8. ¿Qué equipos por temporada han generado más situaciones de gol?. Crear un gráfico de barras de equipos que han generado más situaciones de gol por temporada.
+| # | Pregunta | Visualización |
+|---|----------|---------------|
+| 1 | ¿Cómo se distribuyen las tarjetas amarillas por posición? | Campo de fútbol interactivo |
+| 2 | ¿Dónde anota el mejor goleador de cada temporada? | Scatter sobre campo |
+| 3 | ¿Qué ciudades ganaron más torneos? | Mapa Folium con burbujas |
+| 4 | ¿En qué ciudades se juegan más partidos? | Mapa Folium proporcional |
+| 5 | ¿Cómo evolucionaron las faltas por liga a lo largo del tiempo? | Líneas por temporada |
+| 6 | ¿Quiénes son los mejores en pelota quieta? | Evolución temporal de contribuciones |
+| 7 | ¿Qué equipos dominan jugando de visitante? | Barras horizontales |
+| 8 | ¿Qué equipos generan más tiros al arco? | Facet por liga |
 
 ## Metodología y Herramientas
-- **Python (pandas, JupyterLab)**: Para el análisis de datos y la generación de gráficos.
-- **Tableau**: Creación de un dashboard con 2 gráficos de barras, 1 mapa y 1 histograma basado en ligas.
 
-### Bibliotecas Usadas
-El proyecto utiliza las siguientes bibliotecas de Python:
+### App interactiva — Streamlit
+- Reemplaza los `input()` del notebook por filtros interactivos (sidebar)
+- Gráficos con **Plotly** (zoom, hover, tooltips)
+- Mapas con **Folium** embebidos
+- Caché de datos con `@st.cache_data` para carga eficiente
 
-- `matplotlib.pyplot`: Para la creación de gráficos.
-- `matplotlib.patches`: Para dibujar formas en los gráficos.
-- `pandas`: Para la manipulación y análisis de datos.
-- `geopandas`: Para trabajar con datos geoespaciales.
-- `contextily`: Para agregar mapas base a los gráficos geoespaciales.
-- `seaborn`: Para la visualización de datos.
-- `numpy`: Para operaciones numéricas.
-- `folium`: Para la creación de mapas interactivos.
+### Análisis exploratorio — JupyterLab
+- Limpieza de nulos, duplicados y valores inconsistentes
+- Exploración con `pandas` y visualizaciones con `matplotlib` / `seaborn`
 
-## Dashboard en Tableau
-Puedes ver el dashboard interactivo creado en Tableau a través del siguiente enlace:
+### Dashboard — Tableau
+- 2 gráficos de barras, 1 mapa y 1 histograma filtrado por liga
 
-[Dashboard en Tableau](https://public.tableau.com/app/profile/fernando.torrres/viz/fin_17211741220640/Dashboard4?publish=yes)
+### Bibliotecas Python
+
+| Biblioteca | Uso |
+|-----------|-----|
+| `pandas` | Manipulación y análisis de datos |
+| `streamlit` | App web interactiva |
+| `plotly` | Gráficos interactivos |
+| `folium` | Mapas interactivos |
+| `matplotlib` | Gráficos estáticos (notebook) |
+| `seaborn` | Visualizaciones estadísticas (notebook) |
+| `numpy` | Operaciones numéricas |
+| `geopandas` | Datos geoespaciales (notebook) |
+
+## Cómo ejecutar localmente
+
+```bash
+# Clonar el repositorio
+git clone https://github.com/Reinack/BIGDATA-Futbol.git
+cd BIGDATA-Futbol
+
+# Instalar dependencias
+pip install -r requirements.txt
+
+# Ejecutar la app
+streamlit run app.py
+```
