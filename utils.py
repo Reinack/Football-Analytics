@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 
 FIELD_SHAPES = [
     dict(type="rect", x0=0, y0=0, x1=105, y1=68,
-         line=dict(color="white", width=2), fillcolor="#2d8a4e"),
+         line=dict(color="white", width=2), fillcolor="#2d8a4e", layer="below"),
     dict(type="line", x0=52.5, y0=0, x1=52.5, y1=68,
          line=dict(color="white", width=2)),
     dict(type="rect", x0=0, y0=13.84, x1=16.5, y1=54.16,
