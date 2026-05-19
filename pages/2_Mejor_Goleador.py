@@ -76,8 +76,9 @@ fig.update_layout(
         font=dict(size=18),
     ),
     showlegend=False,
+    height=520,
     margin=dict(l=10, r=10, t=60, b=10),
 )
 
-st.plotly_chart(fig)
+st.plotly_chart(fig, use_container_width=True)
 st.caption("Cada punto rojo representa un gol. Pasá el cursor para ver el minuto y situación.")
