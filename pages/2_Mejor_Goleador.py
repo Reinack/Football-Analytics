@@ -5,7 +5,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 import streamlit as st
 import plotly.graph_objects as go
 from data_loader import load_data
-from utils import add_football_field
+from utils import add_football_field_scatter
 
 st.set_page_config(page_title="Mejor Goleador", page_icon="🎯", layout="wide")
 st.title("🎯 Dónde Anota el Mejor Goleador")
@@ -49,11 +49,7 @@ col2.metric("Goles", total_goals)
 col3.metric("Liga", league_map[league_id])
 
 fig = go.Figure()
-add_football_field(fig)
-
-# Override scaleanchor so the scatter points render within the visible field
-fig.update_yaxes(range=[0, 68], scaleanchor=None, scaleratio=None)
-fig.update_xaxes(range=[0, 105])
+add_football_field_scatter(fig)
 
 fig.add_trace(
     go.Scatter(
@@ -80,9 +76,8 @@ fig.update_layout(
         font=dict(size=18),
     ),
     showlegend=False,
-    height=520,
     margin=dict(l=10, r=10, t=60, b=10),
 )
 
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig)
 st.caption("Cada punto rojo representa un gol. Pasá el cursor para ver el minuto y situación.")
