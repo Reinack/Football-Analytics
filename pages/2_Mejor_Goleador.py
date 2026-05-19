@@ -51,6 +51,10 @@ col3.metric("Liga", league_map[league_id])
 fig = go.Figure()
 add_football_field(fig)
 
+# Override scaleanchor so the scatter points render within the visible field
+fig.update_yaxes(range=[0, 68], scaleanchor=None, scaleratio=None)
+fig.update_xaxes(range=[0, 105])
+
 fig.add_trace(
     go.Scatter(
         x=player_goals["x"],

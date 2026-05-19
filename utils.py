@@ -26,7 +26,10 @@ def add_football_field(fig):
     for shape in shapes:
         fig.add_shape(**shape)
 
-    fig.update_xaxes(range=[0, 105], showgrid=False, zeroline=False, showticklabels=False)
-    fig.update_yaxes(range=[0, 68], showgrid=False, zeroline=False, showticklabels=False)
+    fig.update_xaxes(range=[-2, 107], showgrid=False, zeroline=False, showticklabels=False)
+    fig.update_yaxes(
+        range=[-2, 70], showgrid=False, zeroline=False, showticklabels=False,
+        scaleanchor="x", scaleratio=1,
+    )
     fig.update_layout(plot_bgcolor="rgba(0,0,0,0)", paper_bgcolor="rgba(0,0,0,0)")
     return fig
