@@ -38,11 +38,10 @@ if filtered.empty:
     st.warning("Seleccioná al menos una liga.")
     st.stop()
 
-top_per_league = (
-    filtered.groupby("League", group_keys=False)
-    .apply(lambda x: x.nlargest(top_n, "shotsOnTarget"))
-    .reset_index(drop=True)
-)
+top_per_league = pd.concat([
+    group.nlargest(top_n, "shotsOnTarget")
+    for _, group in filtered.groupby("League")
+]).reset_index(drop=True)
 top_per_league["shotsOnTarget"] = top_per_league["shotsOnTarget"].round(2)
 
 n = len(top_per_league["League"].unique())
