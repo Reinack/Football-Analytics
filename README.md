@@ -93,14 +93,24 @@ El proyecto incluye 7 datasets en formato CSV, siendo los más relevantes `games
 
 ## Cómo ejecutar localmente
 
+### Opción 1 — Docker (recomendado)
+
+No requiere instalar Python ni dependencias.
+
 ```bash
-# Clonar el repositorio
 git clone https://github.com/Reinack/BIGDATA-Futbol.git
 cd BIGDATA-Futbol
+docker build -t football-analytics .
+docker run -p 8501:8501 football-analytics
+```
 
-# Instalar dependencias
+Abrí `http://localhost:8501` en el navegador.
+
+### Opción 2 — Python local
+
+```bash
+git clone https://github.com/Reinack/BIGDATA-Futbol.git
+cd BIGDATA-Futbol
 pip install -r requirements.txt
-
-# Ejecutar la app
 streamlit run app.py
 ```
