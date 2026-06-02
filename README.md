@@ -4,7 +4,7 @@
 Análisis, limpieza y visualización interactiva de datos de fútbol de las 5 principales ligas europeas (2014–2020), utilizando Python, Streamlit y Tableau.
 ## Demo
 
-🚀 **[Ver app en Streamlit](https://bigdata-futbol-n8apt5auubtppwdpfr2bmr.streamlit.app)**
+🚀 **[Ver app en Streamlit](https://bigdata-futbol-n8apt5auubtppwdpfr2bmr.streamlit.app)** (Recomendado)
 
 🚀 **[Ver app en Render](https://bigdata-futbol-wbri.onrender.com/)**
 
