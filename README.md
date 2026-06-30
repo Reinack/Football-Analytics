@@ -1,7 +1,9 @@
 # Top 5 Ligas Europeas — Football Analytics
 
 ## Descripción
-Análisis, limpieza y visualización interactiva de datos de fútbol de las 5 principales ligas europeas (2014–2020), utilizando Python, Streamlit y Tableau.
+Análisis, limpieza y visualización interactiva de datos de fútbol de las 5 principales ligas europeas (2014–2020). El procesamiento de datos se resolvió por partida doble: en **pandas** (un solo nodo) y en **PySpark sobre Hadoop/HDFS** (procesamiento distribuido), y los resultados se presentan en una app **Streamlit** y un dashboard **Tableau**.
+
+Trabajo desarrollado en el marco del **Certificado en Big Data** (Universidad ORT Uruguay).
 ## Demo
 
 🚀 **[Ver app en Streamlit](https://bigdata-futbol-n8apt5auubtppwdpfr2bmr.streamlit.app)** (Recomendado)
@@ -32,8 +34,10 @@ Análisis, limpieza y visualización interactiva de datos de fútbol de las 5 pr
 │   ├── 6_Pelota_Quieta.py
 │   ├── 7_Equipos_Visitante.py
 │   └── 8_Situaciones_Gol.py
-├── Analisis.ipynb            # Limpieza de datos (original)
-├── Preguntas.ipynb           # Análisis exploratorio (original)
+├── Analisis.ipynb            # ETL en pandas (limpieza, nulos, duplicados)
+├── AnalisisSpark.ipynb       # Mismo ETL en PySpark sobre Hadoop/HDFS (distribuido)
+├── Preguntas.ipynb           # Análisis exploratorio y visualizaciones
+├── Data.pdf                  # Informe del obligatorio (Big Data, ORT)
 ├── Raw/                      # Datos crudos
 └── Clean/                    # Datos procesados
 ```
@@ -76,6 +80,15 @@ El proyecto incluye 7 datasets en formato CSV, siendo los más relevantes `games
 - Limpieza de nulos, duplicados y valores inconsistentes
 - Exploración con `pandas` y visualizaciones con `matplotlib` / `seaborn`
 
+### Procesamiento distribuido — PySpark sobre Hadoop (`AnalisisSpark.ipynb`)
+La misma cadena de limpieza del notebook de pandas, reescrita para un entorno **Big Data** distribuido:
+
+- Lectura de los 7 datasets desde **HDFS** (`hdfs:///user/origen/data/*.csv`) con `SparkSession`.
+- Registro de cada DataFrame como vista temporal y limpieza con la **API de Spark** y **Spark SQL**: relleno de cuotas de apuestas faltantes (`fillna(-1)`), normalización de `assisterID`, recuperación de tarjetas amarillas vía `JOIN` entre `teamstats` y `appearances`, y `dropDuplicates()`.
+- Escritura de los datos limpios de vuelta en HDFS (`Obligatorio/Limpios/*.csv`).
+
+Demuestra el equivalente distribuido del ETL en pandas: mismo resultado, pero escalable sobre un clúster Hadoop. El notebook se ejecutó sobre el ambiente Hadoop/Spark provisto por ORT.
+
 ### Dashboard — Tableau
 - 2 gráficos de barras, 1 mapa y 1 histograma filtrado por liga
 
@@ -84,6 +97,7 @@ El proyecto incluye 7 datasets en formato CSV, siendo los más relevantes `games
 | Biblioteca | Uso |
 |-----------|-----|
 | `pandas` | Manipulación y análisis de datos |
+| `pyspark` | Procesamiento distribuido sobre Hadoop/HDFS (Spark SQL) |
 | `streamlit` | App web interactiva |
 | `plotly` | Gráficos interactivos |
 | `folium` | Mapas interactivos |
