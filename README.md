@@ -3,7 +3,7 @@
 ## Descripción
 Análisis, limpieza y visualización interactiva de datos de fútbol de las 5 principales ligas europeas (2014–2020). El procesamiento de datos se resolvió por partida doble: en **pandas** (un solo nodo) y en **PySpark sobre Hadoop/HDFS** (procesamiento distribuido), y los resultados se presentan en una app **Streamlit** y un dashboard **Tableau**.
 
-Trabajo desarrollado en el marco del **Certificado en Big Data** (Universidad ORT Uruguay).
+Trabajo desarrollado en el marco del **Certificado en Big Data** (Universidad ORT Uruguay) y ampliado posteriormente.
 ## Demo
 
 🚀 **[Ver app en Streamlit](https://bigdata-futbol-n8apt5auubtppwdpfr2bmr.streamlit.app)** (Recomendado)
